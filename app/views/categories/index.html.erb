@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.description %></td>
+        <td><%= link_to 'Show', category, class: "btn btn-warning" %></td>
+        <td><%= link_to 'Edit', edit_category_path(category), class: "btn btn-primary" %></td>
+        <td><%= button_to 'Destroy', category, method: :delete, data: { turbo: true, confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category', new_category_path %>

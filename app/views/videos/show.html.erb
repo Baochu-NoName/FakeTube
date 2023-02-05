@@ -1,0 +1,55 @@
+<p> 
+   <%= video_tag(url_for(@video.clip), size:'999x500', controls: :controls, id:'videoPlay') %>
+</p>
+<input type="button" id="btnRewind" name="btnRewind" value="Rewind" onclick="rewindVideo();" />
+<input type="button" id="btnFastForward" name="btnFastForward" value="FastForward" onclick="FastForwardVideo();" />
+<p>
+   <strong>Title:</strong>
+   <%= @video.title %>
+</p>
+
+<p>
+    <strong>Description:</strong>
+    <%= @video.description %>
+</p>
+
+<p>
+    <strong>Category:</strong>
+    <% @video.categories.each do |cat| %>
+    <span class="badge rounded-pill bg-danger"><%= cat.name %></span>
+    <% end %>
+</p>
+
+<%= link_to "Update Video", edit_video_path(@video), class: "btn btn-success"%>
+<%= link_to "Back", videos_path, class: "btn btn-secondary" %>
+<script type="text/javascript">
+var player = document.getElementById('videoPlay');
+var check = videoPlay.play();
+player.addEventListener('loadeddata', (e) => {
+   //Video should now be loaded but we can add a second check
+   if(player.readyState >= 3){
+       //your code goes here 
+      if (check !== undefined) {
+         check.then(_ => {
+         // Autoplay started!
+         }).catch(error => {
+            // Autoplay was prevented.
+            // Show a "Play" button so that user can start playback.
+      });
+}
+   }
+});  
+player.addEventListener('mouseover', function() {
+     
+});
+
+function FastForwardVideo()
+{
+    player.currentTime += 5;
+}
+function rewindVideo()
+{
+   player.currentTime -= 5;
+}
+     
+</script>

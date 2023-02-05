@@ -1,0 +1,1 @@
+alias irb='winpty "$(which irb).cmd"'

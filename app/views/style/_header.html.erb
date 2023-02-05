@@ -1,0 +1,35 @@
+<ul>
+  <%= link_to image_tag('fake_tube.PNG', style: "width: 200px; height:100px;"), root_path %>
+  <li><a class="active" href="/" style="color: white">Home</a></li>
+  <li><a href="/contact" style="color: white">Contact</a></li>
+  <li><a href="/about" style="color: white">About</a></li>
+  <li> <a href="/videos/new" style="color: white">Upload Video</a></li>
+  <li class="dropdown-menus">
+    <a href="javascript:void(0)" class="dropbtn" style="color: white;"> Settings</a>
+    <div class="dropdown-content">
+      <a href="javascript:void(0)">  <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Light/Dark</label>
+       </div></a>
+    </div>
+  </li>
+
+  <li class="dropdown-menus">
+    <a href="javascript:void(0)" class="dropbtn" style="color: white;">Category</a>
+    <div class="dropdown-content">
+      <% @categories.each do |cat| %>
+        <%= link_to cat.name, videos_url + "?search_input=" + cat.name %>
+      <% end %>
+    </div>
+  </li>
+
+  <li style="color: white; float: right; margin-right: 8px;">  
+    <form action="/videos">
+      <div class="input-group mb-2">
+          <input id="video_search_input" name="search_input" class="form-control" type="text" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+          <button class="btn btn-primary" id="button-addon2" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </li>
+</ul>
+<br>

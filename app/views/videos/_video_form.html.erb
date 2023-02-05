@@ -1,0 +1,36 @@
+<div class="container">
+    <%= form_for @video do |f| %>
+    <div class="mb-3">
+        <%= f.label :title%>
+        <%= f.text_field :title, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+     <div class="mb-3 form-group">
+        <%= f.label :categories %>
+        <%= f.collection_select :category_ids, Category.all.order(:name), :id, :name, {}, {class: 'form-control select2', style: "color: white;", multiple: true} %>
+    </div>
+
+    
+    <div class="mb-3">
+        <%= f.label :thumbnail%>
+        <%= f.file_field :thumbnail%>
+    </div>
+    <div class="mb-3">
+        <%= f.label :clip%>
+        <%= f.file_field :clip %>
+    </div>
+    <%= f.submit "Submit", class: 'btn btn-success'%>
+    <% end %>
+    <script>
+       $(document).ready(function() {
+            $('.select2').select2({
+                theme: "classic",
+                width: "resolve"
+            });
+        });
+    </script>
+</div>

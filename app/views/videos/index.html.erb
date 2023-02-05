@@ -1,0 +1,47 @@
+<div class="card-group">
+
+	<% @videos.each do |video| %>
+		<div class="col-8 col-md-3 col-lg-2" style="margin: 15px 10px;">
+			<div class="card">
+					<%= image_tag(video.thumbnail, id:"img-thumbnail", class:"card-img-top") if video.thumbnail.persisted? %>
+				<!-- 	<3%= video_tag(url_for(video.clip), class:"card-img-top", height:"180px!important", width:"180px!important", 'onmouseover':'this.play()', 'onmouseout':'this.pause();this.currentTime = 0;', muted: 'muted') if video.clip.persisted? %> -->
+				<div class="card-body">
+						<h5 class="card-title"><b><%= link_to truncate(video.title, length: 20, 'font-size': '18rem;'), video, style: "color: #FE6F5E", title: video.title %></b></h5>
+				</div>
+				<div class="card-footer text-muted">
+					<% if (video.updated_at - video.created_at) > 1%>
+						<small><%= time_ago_in_words(video.updated_at) %></small>
+					<% else %>
+						<small><%= time_ago_in_words(video.created_at) %></small>
+					<% end %>
+				</div> 
+			</div> 
+	</div>  
+	<% end %>
+
+	<%  if @video_categories.present? %>
+			<% @video_categories.each do |video_cat|%>
+				
+				<% video_cat.videos.each do |video| %>
+					<div class="col-8 col-md-3 col-lg-2" style="margin: 15px 10px;">
+						<div class="card">
+								<%= image_tag(video.thumbnail, id:"img-thumbnail", class:"card-img-top") if video.thumbnail.persisted? %>
+							<!-- 	<3%= video_tag(url_for(video.clip), class:"card-img-top", height:"180px!important", width:"180px!important", 'onmouseover':'this.play()', 'onmouseout':'this.pause();this.currentTime = 0;', muted: 'muted') if video.clip.persisted? %> -->
+							<div class="card-body">
+									<h5 class="card-title"><b><%= link_to truncate(video.title, length: 20, 'font-size': '18rem;'), video, style: "color: #FE6F5E", title: video.title %></b></h5>
+							</div>
+							<div class="card-footer text-muted">
+								<% if (video.updated_at - video.created_at) > 1%>
+									<small><%= time_ago_in_words(video.updated_at) %></small>
+								<% else %>
+									<small><%= time_ago_in_words(video.created_at) %></small>
+								<% end %>
+							</div> 
+						</div> 
+				</div>  
+				<% end %>
+			<% end %>
+	<% end %>
+
+</div>
+<br>
