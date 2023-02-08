@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'show', to:'videos#show'
   get 'new', to:'videos#new'
   patch 'update/:id', to: 'videos#update', as: 'update_video'
-  get 'about', to:'style#index'
+  get 'about', to:'style#about'
   get 'contact', to:'style#contact'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

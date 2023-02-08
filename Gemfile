@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 # gem 'mysql2', '~> 0.5.3'
 gem 'select2-rails', '~> 4.0', '>= 4.0.3'
+gem 'friendly_id', '~> 5.4.0'
+gem 'bullet', group: 'development'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

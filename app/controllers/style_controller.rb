@@ -6,7 +6,7 @@ class StyleController < ApplicationController
 	def footer
 	end
 	
-	def index
+	def about
 	end
 
 	def contact

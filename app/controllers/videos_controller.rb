@@ -1,13 +1,14 @@
 class VideosController < ApplicationController
   before_action :set_video, only: %i[show edit update destroy]
   before_action :set_cats
+
   def index
     if params[:search_input]
-      @videos = Video.search_videos(params[:search_input])
-      @video_categories = Video.includes(:video_categories, :videos).find_category(params[:search_input])
+      @videos = Video.includes(:thumbnail_attachment, thumbnail_attachment: :blob).search_videos(params[:search_input])
+      @video_categories = Video.includes(:thumbnail_attachment, thumbnail_attachment: :blob).find_category(params[:search_input])
     else
-      @videos = Video.all.order("created_at DESC")
-    end 
+      @videos = Video.includes(:thumbnail_attachment, thumbnail_attachment: :blob).all.order("created_at DESC")
+    end
   end
 
   def show
@@ -25,7 +26,7 @@ class VideosController < ApplicationController
     if @video.save
       redirect_to @video, notice:"Video was successfully created"
     else
-      render :new 
+      render :new
     end
   end
 
@@ -39,7 +40,7 @@ class VideosController < ApplicationController
 
   private
   def set_video
-    @video = Video.find(params[:id])
+    @video = Video.friendly.find(params[:id])
   end
 
   def video_params

@@ -1,5 +1,4 @@
-$(document).ready(function(){
- $(':checkbox').change(function(){
+$(':checkbox').on('change',function(){
     $(document).on('change', 'backgroundChange', function(){
       if(this.checked) {
         $('#backgroundChange').addClass("bg-dark"); 
@@ -11,7 +10,6 @@ $(document).ready(function(){
       }
     });
  });
-});
 
 // $(document).ready(function(){
 //   $("#img-thumbnail").mouseenter(function(){

@@ -1,8 +1,10 @@
 <p> 
-   <%= video_tag(url_for(@video.clip), size:'999x500', controls: :controls, id:'videoPlay') %>
+   <%= video_tag(url_for(@video.clip), size:'600x300', controls: :controls, id:'videoPlay', class: "video-js vjs-default-skin", preload: true, 'data-setup':'{ "aspectRatio":"600:300", "playbackRates": [0.5, 1, 1.5, 2] }' ) %>
 </p>
-<input type="button" id="btnRewind" name="btnRewind" value="Rewind" onclick="rewindVideo();" />
-<input type="button" id="btnFastForward" name="btnFastForward" value="FastForward" onclick="FastForwardVideo();" />
+<p>
+   <%= button_tag "Subcribe", type: 'button', onclick: "loadContent(this.value);", class: 'btn btn-danger', style: 'display: block;'%>
+   <%= button_tag "UnSubcribe", type: 'button', onclick: "loadContent(this.value);", style: "display: none;", class: 'btn btn-secondary', 'data-confirm': 'Are you sure?'%>
+</p>
 <p>
    <strong>Title:</strong>
    <%= @video.title %>
@@ -22,34 +24,17 @@
 
 <%= link_to "Update Video", edit_video_path(@video), class: "btn btn-success"%>
 <%= link_to "Back", videos_path, class: "btn btn-secondary" %>
-<script type="text/javascript">
-var player = document.getElementById('videoPlay');
-var check = videoPlay.play();
-player.addEventListener('loadeddata', (e) => {
-   //Video should now be loaded but we can add a second check
-   if(player.readyState >= 3){
-       //your code goes here 
-      if (check !== undefined) {
-         check.then(_ => {
-         // Autoplay started!
-         }).catch(error => {
-            // Autoplay was prevented.
-            // Show a "Play" button so that user can start playback.
-      });
-}
-   }
-});  
-player.addEventListener('mouseover', function() {
-     
-});
-
-function FastForwardVideo()
-{
-    player.currentTime += 5;
-}
-function rewindVideo()
-{
-   player.currentTime -= 5;
-}
-     
+<div id="video-content">Test Ajax Request here. Video title will be listed here</div>
+<script>
+    function loadContent(str){
+        if(str == ''){
+            document.getElementById('video-content').innerHTML = '';
+            return;
+        }
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = () => {
+            document.getElementById('video-content').innerHTML = this.responseText();
+        }
+        xhttp.open('GET', 'videos?search_input=' + str);
+    }   xhttp.send();
 </script>
