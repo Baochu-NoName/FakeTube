@@ -112,3 +112,29 @@ li.dropdown-menus {
 .dropdown-menus:hover .dropdown-content {
   display: block;
 }
+
+.dark-mode {
+  background-color: black!important;
+  color: white;
+}
+
+.alert{
+  animation: hideMe 5s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+}
+
+@keyframes hideMe{
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

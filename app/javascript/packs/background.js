@@ -1,15 +1,13 @@
-$(':checkbox').on('change',function(){
-    $(document).on('change', 'backgroundChange', function(){
-      if(this.checked) {
-        $('#backgroundChange').addClass("bg-dark"); 
-        $('#backgroundChange').addClass("text-white"); 
-      }
-      else {
-        $('#backgroundChange').removeClass("bg-dark"); 
-        $('#backgroundChange').removeClass("text-white"); 
-      }
-    });
- });
+// $(function() {
+//     $('#darkmode-checkbox').val($(this).is(':checked'))
+//     $('#darkmode-checkbox').on('change', () =>{
+//       if($(this).is(':checked')){
+//         $("body").toggleClass("dark-mode");
+//         $(".card").toggleClass("dark-mode");
+//       }
+//       $('#darkmode-checkbox').val($(this).is(':checked'))
+//     });
+//   });
 
 // $(document).ready(function(){
 //   $("#img-thumbnail").mouseenter(function(){

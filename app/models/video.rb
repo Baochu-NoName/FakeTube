@@ -4,7 +4,6 @@ class Video < ApplicationRecord
 	has_many :video_categories
 	has_many :categories, through: :video_categories
 	scope :search_videos, -> (search) {where('title ILIKE ? OR description ILIKE ?', "%#{search}%",  "%#{search}%")  if search.present?}
-	
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	

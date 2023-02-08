@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :categories 
+  devise_for :users do
+    get '/users/sign_out', to: 'devise/sessions#destroy'
+  end
+  resources :categories
   delete 'categories/:id', to: 'categories#destroy', as:'delete_category'
   resources :videos
   root 'videos#index'

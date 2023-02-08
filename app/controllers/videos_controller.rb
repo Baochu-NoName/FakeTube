@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
   before_action :set_video, only: %i[show edit update destroy]
   before_action :set_cats
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     if params[:search_input]

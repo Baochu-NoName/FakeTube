@@ -2,7 +2,7 @@
    <%= video_tag(url_for(@video.clip), size:'600x300', controls: :controls, id:'videoPlay', class: "video-js vjs-default-skin", preload: true, 'data-setup':'{ "aspectRatio":"600:300", "playbackRates": [0.5, 1, 1.5, 2] }' ) %>
 </p>
 <p>
-   <%= button_tag "Subcribe", type: 'button', onclick: "loadContent(this.value);", class: 'btn btn-danger', style: 'display: block;'%>
+   <%= button_tag "Subcribe", type: 'button', onclick: "loadContent('EDM Music Gaming');", class: 'btn btn-danger', style: 'display: block;'%>
    <%= button_tag "UnSubcribe", type: 'button', onclick: "loadContent(this.value);", style: "display: none;", class: 'btn btn-secondary', 'data-confirm': 'Are you sure?'%>
 </p>
 <p>
@@ -33,8 +33,9 @@
         }
         const xhttp = new XMLHttpRequest();
         xhttp.onload = () => {
-            document.getElementById('video-content').innerHTML = this.responseText();
+            document.getElementById('video-content').innerHTML = this.responseText;
         }
-        xhttp.open('GET', 'videos?search_input=' + str);
-    }   xhttp.send();
+        xhttp.open('GET', '/video_title?');
+        xhttp.send("search_video=" + str);
+    }
 </script>
