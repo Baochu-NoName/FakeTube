@@ -7,9 +7,9 @@ Things you may want to cover:
 
 * Ruby version
 I'm using ruby version ruby 3.0.2p107
-Ruby on Rails version 6.1.4.4
-My website uses bootstrap theme and devise gem for authentication
-Configuration
+and Ruby on Rails version 6.1.4.4
+* My website uses bootstrap theme and devise gem for authentication
+* Configuration
 Database name is faketubedb
 * Database creation
 Website using database Postgresql 14
