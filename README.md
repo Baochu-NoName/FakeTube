@@ -6,19 +6,13 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-
-* System dependencies
-
-* Configuration
-
+I'm using ruby version ruby 3.0.2p107
+Ruby on Rails version 6.1.4.4
+My website uses bootstrap theme and devise gem for authentication
+Configuration
+Database name is faketubedb
 * Database creation
-
+Website using database Postgresql 14
 * Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+It's all included in the folder db/migrate, and file db/seed.rb db/seed.rb
+# For learning purpose only.
