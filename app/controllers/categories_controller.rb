@@ -48,12 +48,12 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
-    @category.destroy
+      @category.destroy
 
-    respond_to do |format|
-      format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
-      format.json { head :no_content }
-    end
+      respond_to do |format|
+        format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
+        format.json { head :no_content }
+      end
   end
 
   private
@@ -61,7 +61,6 @@ class CategoriesController < ApplicationController
     def set_category
       @category = Category.find(params[:id])
     end
-
     # Only allow a list of trusted parameters through.
     def category_params
       params.require(:category).permit(:name, :description)

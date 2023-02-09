@@ -5,3 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+def create_table_values
+    User.create(user_name: "kevin0123399",
+                email: "kevinclarkgta@gmail.com",
+                password: "131619",
+                password_confirmation: "131619",
+                role: 2
+            )
+    User.create(user_name: "John Doe",
+                email: "jd@gmail.com",
+                password: "jd@131619",
+                password_confirmation: "jd@131619",
+                role: 0
+            )
+
+    Category.create(
+        name: "Eduction",
+        description: "Contents about education"
+    )
+end
+
+create_table_values

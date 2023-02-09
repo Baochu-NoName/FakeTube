@@ -13,6 +13,7 @@ class VideosController < ApplicationController
   end
 
   def show
+    Video.update(views_count: @video.views_count + 1)
   end
 
   def edit

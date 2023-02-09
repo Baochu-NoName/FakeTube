@@ -16,6 +16,13 @@
 </p>
 
 <p>
+    <strong>Views:</strong>
+    <%= pluralize(@video.views_count, 'view') %>
+    <%= current_user.role %>
+</p>
+
+
+<p>
     <strong>Category:</strong>
     <% @video.categories.each do |cat| %>
     <span class="badge rounded-pill bg-danger"><%= cat.name %></span>
