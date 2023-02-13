@@ -35,30 +35,18 @@
   <div class="card p-3 mb-2">
      <%= yield %>
    </div>
-    <%= render 'style/footer'%>
+  <%= render 'style/footer'%>
     <script>
-    // function changeBackground(){
-      // let background_dark = document.body;
-      // let checkbox = document.getElementById("flexSwitchCheckChecked");
-      // let videoCard = document.querySelector(".card");
-      
-      // checkbox.addEventListener("change", () => {
-      //     if(checkbox.checked){
-      //       background_dark.classList.add('dark-mode');
-      //       videoCard.classList.add('dark-mode');
-      //     }else{
-      //       background_dark.classList.remove('dark-mode');
-      //       videoCard.classList.remove('dark-mode');
-      //     }
-      //   });
-      //    }
+
       (function() {
         let onpageLoad = localStorage.getItem("theme") || "";
         let element = document.body;
         let videoCard = document.querySelector(".card");
         let checkBox = document.getElementById("flexSwitchCheckChecked");
+        let cat_table = document.querySelector("#table-container");
         element.classList.add(onpageLoad);
         videoCard.classList.add(onpageLoad);
+        cat_table.classList.add(onpageLoad);
         if(onpageLoad && onpageLoad === "dark-mode" && !checkBox.checked){
             checkBox.checked = true;
         }else{
@@ -69,13 +57,15 @@
 
 function themeToggle() {
   let element = document.body;
+   let cat_table = document.querySelector("#table-container");
   let videoCard = document.querySelector(".card");
   element.classList.toggle("dark-mode");
   videoCard.classList.toggle("dark-mode");
+  cat_table.classList.toggle("dark-mode");
 
   let theme = localStorage.getItem("theme");
   if (theme && theme === "dark-mode") {
-    localStorage.setItem("theme", "Light");
+    localStorage.setItem("theme", "light");
   } else {
     localStorage.setItem("theme", "dark-mode");
   }

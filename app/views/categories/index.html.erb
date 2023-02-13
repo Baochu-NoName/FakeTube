@@ -1,33 +1,30 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Categories</h1>
 <% if  user_signed_in?%>
   <% if current_user.admin? %>
-<table class="table table-striped"  >
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
+<div class="container">
+  <table id= "table-container" class="table table-striped">
+    <thead>
       <tr>
-          <td><%= category.name %></td>
-          <td><%= category.description %></td>
- 
-          <td><%= link_to 'Show', category, class: "btn btn-warning" %></td>
-          <td><%= link_to 'Edit', edit_category_path(category), class: "btn btn-primary" %></td>
-          <td><%= button_to 'Destroy', category, method: :delete, data: { turbo: true, confirm: 'Are you sure?' }, class: "btn btn-danger"%></td>
+        <th>Name</th>
+        <th>Description</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-    <%= link_to 'New Category', new_category_path, class: 'btn btn-success' %>
-    <% else %>
-      <h3 style="text-align: center;">You must be an admin to continue</h3>
-    <% end %>
-<% end %>
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+            <td><%= category.name %></td>
+            <td><%= category.description %></td>
+            <td><%= link_to 'Show', category, class: "btn btn-warning" %><%= link_to 'Edit', edit_category_path(category), class: "btn btn-primary" %><%= link_to 'Destroy', category, method: :delete, data: { turbo: true, confirm: 'Are you sure?' }, class: "btn btn-danger"%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+      <%= link_to 'New Category', new_category_path, class: 'btn btn-success' %>
+      <% else %>
+        <h3 style="text-align: center;">You must be an admin to continue</h3>
+      <% end %>
+  <% end %>
+</div>

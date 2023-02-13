@@ -115,7 +115,8 @@ li.dropdown-menus {
 
 .dark-mode {
   background-color: black!important;
-  color: white;
+  color: #fff!important;
+  --bs-table-striped-color: #fff!important;
 }
 
 .alert{
@@ -138,3 +139,10 @@ li.dropdown-menus {
     opacity: 1;
   }
 }
+
+.btn-primary, .btn-warning, .btn-secondary, .btn-primary{
+  display: inline-block;
+  margin-right: 10px;
+}
+
+

@@ -14,5 +14,5 @@ Database name is faketubedb
 * Database creation
 Website using database Postgresql 14
 * Database initialization
-It's all included in the folder db/migrate, and file db/seed.rb db/seed.rb
+It's all included in the folder db/migrate, and file db/seed.rb
 # For learning purpose only.

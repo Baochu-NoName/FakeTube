@@ -20,7 +20,7 @@ def create_table_values
             )
 
     Category.create(
-        name: "Eduction",
+        name: "Education",
         description: "Contents about education"
     )
 end

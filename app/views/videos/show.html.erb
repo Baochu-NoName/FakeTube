@@ -15,12 +15,6 @@
     <%= @video.description %>
 </p>
 
-<p>
-    <strong>Views:</strong>
-    <%= pluralize(@video.views_count, 'view') %>
-    <%= current_user.role %>
-</p>
-
 
 <p>
     <strong>Category:</strong>
@@ -29,7 +23,20 @@
     <% end %>
 </p>
 
-<%= link_to "Update Video", edit_video_path(@video), class: "btn btn-success"%>
+    <p>
+        <strong>Views:</strong>
+        <%= pluralize(@video.views_count, 'view') %>
+    <% if user_signed_in? %>
+        || You're an <%= current_user.role %>
+    </p>
+
+    <%= link_to "Update Video", edit_video_path(@video), class: "btn btn-success" if @video.user_id == current_user.id %>
+    <% end %>
+
+<p>
+    <strong>User:</strong>
+    <%= @video.user.user_name %>
+
 <%= link_to "Back", videos_path, class: "btn btn-secondary" %>
 <div id="video-content">Test Ajax Request here. Video title will be listed here</div>
 <script>
