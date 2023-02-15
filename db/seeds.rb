@@ -23,6 +23,10 @@ def create_table_values
         name: "Education",
         description: "Contents about education"
     )
+    Category.create(
+        name: "Programming",
+        description: "Contents about Programming"
+    )
 end
 
 create_table_values

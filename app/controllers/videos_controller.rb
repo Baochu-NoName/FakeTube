@@ -13,10 +13,15 @@ class VideosController < ApplicationController
   end
 
   def show
-    Video.update(views_count: @video.views_count + 1)
+    Video.update(views_count: @video.views_count + 1) if !current_user.admin?
   end
 
   def edit
+    redirect_to root_path, 
+    notice: "You cannot edit this video 
+              because you don't own it." if(params[:action] == "edit" &&
+                                           current_user.id != @video.user_id &&
+                                           !current_user.admin?)
   end
 
   def new
@@ -46,6 +51,6 @@ class VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :description, :thumbnail, :clip,:user_id, category_ids: []) 
+    params.require(:video).permit(:title, :description, :thumbnail, :clip, :age_restricted, :user_id, category_ids: []) 
   end
 end

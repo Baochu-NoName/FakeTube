@@ -23,6 +23,11 @@
         <%= f.label :clip%>
         <%= f.file_field :clip %>
     </div>
+
+    <div class="mb-3">
+        <%= f.label :age_restricted %>
+        <%= f.check_box :age_restricted %>
+    </div>
     <%= f.submit "Submit", class: 'btn btn-success'%>
     <% end %>
     <script>

@@ -6,7 +6,7 @@ class Video < ApplicationRecord
 	belongs_to :user
 	scope :search_videos, -> (search) {where('title ILIKE ? OR description ILIKE ?', "%#{search}%",  "%#{search}%")  if search.present?}
 	extend FriendlyId
-	friendly_id :title, use: :slugged
+	friendly_id :title
 	
 	def self.find_category(search_input)
 		categories = Category.all.where('name ILIKE ?', "%#{search_input}%")

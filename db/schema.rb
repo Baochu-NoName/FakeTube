@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2023_02_13_031851) do
   create_table "videos", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.boolean "age_restricted", default: true
+    t.boolean "age_restricted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
