@@ -11,12 +11,10 @@ class VideoDashboard < Administrate::BaseDashboard
     id: Field::Number,
     age_restricted: Field::Boolean,
     categories: Field::HasMany.with_options(sort_by: :name),
-    # clip_attachment: Field::HasOne,
-    # clip_blob: Field::HasOne,
-    # thumbnail_blob: Field::HasOne,
-    # thumbnail_attachment: Field::HasOne,
-    # thumbnail_blob: Field::ActiveStorage,
-    # clip_blob: Field::ActiveStorage,
+    clip_attachment: Field::HasOne,
+    clip_blob: Field::HasOne,
+    thumbnail_blob: Field::HasOne,
+    thumbnail_attachment: Field::HasOne,
     clip: Field::ActiveStorage,
     thumbnail: Field::ActiveStorage,
     description: Field::Text,
@@ -36,10 +34,10 @@ class VideoDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    age_restricted
-    categories
     clip
     thumbnail
+    age_restricted
+    categories
     user
   ].freeze
 
@@ -50,12 +48,11 @@ class VideoDashboard < Administrate::BaseDashboard
     age_restricted
     categories
     clip
+    thumbnail
     description
     slug
-    thumbnail
     title
     user
-    video_categories
     views_count
     created_at
     updated_at
@@ -93,4 +90,7 @@ class VideoDashboard < Administrate::BaseDashboard
   # def display_resource(video)
   #   "Video ##{video.id}"
   # end
+  def display_resource(video)
+    video.title
+  end
 end

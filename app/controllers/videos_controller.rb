@@ -4,16 +4,18 @@ class VideosController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
-    if params[:search_input]
-      @videos = Video.includes(:thumbnail_attachment, thumbnail_attachment: :blob).search_videos(params[:search_input])
-      @video_categories = Video.includes(:thumbnail_attachment, thumbnail_attachment: :blob).find_category(params[:search_input])
-    else
-      @videos = Video.includes(:thumbnail_attachment, thumbnail_attachment: :blob).all.order("created_at DESC")
+    if params[:search_input] 
+      @videos = Video.includes(thumbnail_attachment: :blob).search_videos(params[:search_input])
+    elsif !params[:search_by_category]
+      @videos = Video.includes(thumbnail_attachment: :blob).all.order("created_at DESC")
     end
+      @video_categories = Video.includes(thumbnail_attachment: :blob).find_category(params[:search_by_category]) if params[:search_by_category]
   end
 
   def show
-    Video.update(views_count: @video.views_count + 1) if !current_user.admin?
+    if current_user.present?
+      Video.update(views_count: @video.views_count + 1) if !current_user.admin?
+    end
   end
 
   def edit

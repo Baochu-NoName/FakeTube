@@ -34,9 +34,9 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    role
     user_name
     email
+    role
   ].freeze
 
    #encrypted_password

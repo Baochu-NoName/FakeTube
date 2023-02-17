@@ -1,18 +1,18 @@
 class Video < ApplicationRecord
 	has_one_attached :clip
 	has_one_attached :thumbnail
-	has_many :video_categories
+	has_many :video_categories, dependent: :destroy
 	has_many :categories, through: :video_categories
 	belongs_to :user
-	scope :search_videos, -> (search) {where('title ILIKE ? OR description ILIKE ?', "%#{search}%",  "%#{search}%")  if search.present?}
+    scope :search_videos, -> (search) {joins(:categories).references(:categories).where('title ILIKE ? OR videos.description ILIKE ? OR categories.name ILIKE ?', "%#{search}%",  "%#{search}%", "%#{search}%")  if search.present?}
 	extend FriendlyId
 	friendly_id :title
 	
-	def self.find_category(search_input)
-		categories = Category.all.where('name ILIKE ?', "%#{search_input}%")
-		if categories
-		  categories.each do |cat|
-			@videos_cat = cat.videos.includes(:thumbnail_attachment)
+	def self.find_category(search_by_cat)
+      @category = Category.find_by('name ILIKE ?', "%#{search_by_cat}%") if search_by_cat.present?
+		if @category
+		  @category.videos.includes(thumbnail_attachment: :blob).each do |video|
+            where('id ILIKE ?', "%#{video.id}%") 
 		  end
 		end
 	end

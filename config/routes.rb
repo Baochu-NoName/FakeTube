@@ -6,8 +6,8 @@ Rails.application.routes.draw do
       resources :video_categories
       #add these 4 lines for administrate gem
       namespace :active_storage do
-        resources :blobs
-        resources :attachments
+        resources :blobs, except: :index
+        resources :attachments, except: :index
       end
 
       root to: "users#index"
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get '/users/sign_out', to: 'devise/sessions#destroy'
   end
   
-  resources :categories
+  #resources :categories
   delete 'categories/:id', to: 'categories#destroy', as:'delete_category'
   resources :videos
 

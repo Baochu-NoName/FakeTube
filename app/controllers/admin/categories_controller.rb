@@ -15,6 +15,10 @@ module Admin
     # def find_resource(param)
     #   Foo.find_by!(slug: param)
     # end
+    
+    def find_resource(param)
+      Category.find_by!(id: param)
+    end
 
     # The result of this lookup will be available as `requested_resource`
 

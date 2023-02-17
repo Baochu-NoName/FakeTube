@@ -1,9 +1,9 @@
 <div class="card-group">
-
+  <% if @videos.present? %>
 	<% @videos.each do |video| %>
 		<div class="col-8 col-md-3 col-lg-2" style="margin: 15px 10px;">
 			<div class="card">
-					<%= image_tag(video.thumbnail_attachment, id:"img-thumbnail", class:"card-img-top") if video.thumbnail.persisted? %>
+					<%= image_tag(video.thumbnail, id:"img-thumbnail", class:"card-img-top") if video.thumbnail.persisted? %>
 				<div class="card-body">
 						<h5 class="card-title"><b><%= link_to truncate(video.title, length: 20, 'font-size': '18rem;'), video, style: "color: #FE6F5E", title: video.title %></b></h5>
 				</div>
@@ -16,15 +16,15 @@
 				</div> 
 			</div> 
 	</div>  
-	<% end %>
+    <% end %>
+  <% end %>
+
 
 	<%  if @video_categories.present? %>
-			<% @video_categories.each do |video_cat|%>
-				<% video_cat.videos.each do |video| %>
+			<% @video_categories.each do |video|%>
 					<div class="col-8 col-md-3 col-lg-2" style="margin: 15px 10px;">
 						<div class="card">
-								<%= image_tag(video.thumbnail_attachment, id:"img-thumbnail", class:"card-img-top") if video.thumbnail_attachment.persisted? %>
-							<!-- 	<3%= video_tag(url_for(video.clip), class:"card-img-top", height:"180px!important", width:"180px!important", 'onmouseover':'this.play()', 'onmouseout':'this.pause();this.currentTime = 0;', muted: 'muted') if video.clip.persisted? %> -->
+								<%= image_tag(video.thumbnail, id:"img-thumbnail", class:"card-img-top") if video.thumbnail_attachment.persisted? %>
 							<div class="card-body">
 									<h5 class="card-title"><b><%= link_to truncate(video.title, length: 20, 'font-size': '18rem;'), video, style: "color: #FE6F5E", title: video.title %></b></h5>
 							</div>
@@ -37,9 +37,9 @@
 							</div> 
 						</div> 
 				</div>  
-				<% end %>
+		
 			<% end %>
 	<% end %>
-
 </div>
 <br>
+

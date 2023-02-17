@@ -20,7 +20,7 @@
     <a href="javascript:void(0)" class="dropbtn" style="color: white;">Category</a>
     <div class="dropdown-content">
       <% @categories.each do |cat| %>
-        <%= link_to cat.name, videos_url + "?search_input=" + cat.name %>
+        <%= link_to cat.name, videos_url + "?search_by_category=" + cat.name %>
       <% end %>
     </div>
   </li>
