@@ -9,7 +9,6 @@ class UserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    admin: Field::Boolean,
     email: Field::String.with_options(
       searchable: true,
       searchable_fields: ['email'],
@@ -44,7 +43,6 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    admin
     user_name
     email  
     role
@@ -57,7 +55,6 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    admin
     email
     user_name
     password

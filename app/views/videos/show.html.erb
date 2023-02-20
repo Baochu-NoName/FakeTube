@@ -2,8 +2,15 @@
    <%= video_tag(url_for(@video.clip), size:'600x300', controls: :controls, id:'videoPlay', class: "video-js vjs-default-skin", preload: true, 'data-setup':'{ "aspectRatio":"600:300", "playbackRates": [0.5, 1, 1.5, 2] }' ) %>
 </p>
 <p>
-   <%= button_tag "Subcribe", type: 'button', onclick: "loadContent('EDM Music Gaming');", class: 'btn btn-danger', style: 'display: block;'%>
-   <%= button_tag "UnSubcribe", type: 'button', onclick: "loadContent(this.value);", style: "display: none;", class: 'btn btn-secondary', 'data-confirm': 'Are you sure?'%>
+<button class="btn-custom" id="blue" onclick="document.getElementById('form-blue').submit();"><i class="fa-solid fa-thumbs-up fa-2x"></i></button>
+<button class="btn-custom" id="red" onclick="document.getElementById('form-red').submit();"><i class="fa-solid fa-thumbs-down fa-2x"></i></button>
+<% if user_signed_in? %>
+  <div id="video-content">Test Ajax Request here. Video title will be listed here</div>
+
+  <%= button_to "Like", {controller: :like_dislikes, video_id: @video.id, action: :create_like}, remote: true,form: {id: 'form-blue'} %>
+
+  <%= button_to "DisLike", {controller: :like_dislikes, video_id: @video.id, action: :create_dislike}, remote: true,form: {id: 'form-red'}%>
+<% end %>
 </p>
 <p>
    <strong>Title:</strong>
@@ -29,27 +36,42 @@
     <% if user_signed_in? %>
         || You're an <%= current_user.role %>
     </p>
-
+    <p>
+      <strong>User:</strong>
+      <%= @video.user.user_name %>
+    </p>
     <%= link_to "Update Video", edit_video_path(@video), class: "btn btn-success" if @video.user_id == current_user.id %>
     <% end %>
 
-<p>
-    <strong>User:</strong>
-    <%= @video.user.user_name %>
-
 <%= link_to "Back", videos_path, class: "btn btn-secondary" %>
-<div id="video-content">Test Ajax Request here. Video title will be listed here</div>
+
 <script>
-    function loadContent(str){
-        if(str == ''){
-            document.getElementById('video-content').innerHTML = '';
-            return;
-        }
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = () => {
-            document.getElementById('video-content').innerHTML = this.responseText;
-        }
-        xhttp.open('GET', '/video_title?');
-        xhttp.send("search_video=" + str);
+  let getLikeButton = document.querySelector('#blue');
+  let getDislikeButton = document.querySelector('#red');
+
+  getLikeButton.addEventListener('click', function(){
+    if(getDislikeButton.classList.contains('btn-red')){
+      getDislikeButton.classList.remove('btn-red'); 
+    }
+    this.classList.toggle('btn-blue');
+  }); 
+
+  getDislikeButton.addEventListener('click', function() {
+    if(getLikeButton.classList.contains('btn-blue')){
+      getLikeButton.classList.remove('btn-blue');
+    }  
+    this.classList.toggle('btn-red');
+    });
+
+
+  window.onload = function(){
+      <% if @is_liked %>
+           getLikeButton.classList.toggle('btn-blue');
+    <% elsif @is_disliked %>
+        getDislikeButton.classList.toggle('btn-red');
+    <% else %>
+          getDislikeButton.classList.remove('btn-red');
+          getLikeButton.classList.remove('btn-blue');
+      <% end %>
     }
 </script>

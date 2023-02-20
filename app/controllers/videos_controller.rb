@@ -16,6 +16,9 @@ class VideosController < ApplicationController
     if current_user.present?
       Video.update(views_count: @video.views_count + 1) if !current_user.admin?
     end
+    @is_liked =  @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id).is_liked? if user_signed_in?
+    @is_disliked =  @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id).is_disliked? if user_signed_in?
+
   end
 
   def edit

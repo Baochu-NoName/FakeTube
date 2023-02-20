@@ -145,4 +145,23 @@ li.dropdown-menus {
   margin-right: 10px;
 }
 
+button {
+	cursor: pointer;	
+	outline: none;
+	color: #AAA;
+}
 
+#form-blue, #form-red{
+    display: none;
+}
+
+.btn-custom:focus {
+	outline: none;
+}
+
+.btn-blue{
+	color: blue;
+}
+.btn-red {
+	color: red;
+}

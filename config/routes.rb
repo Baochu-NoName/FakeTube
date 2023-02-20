@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   #resources :categories
   delete 'categories/:id', to: 'categories#destroy', as:'delete_category'
   resources :videos
+  resources :like_dislikes, only:%i[ destroy ]
+  post 'create_like', to: 'like_dislikes#create_like'
+  post 'create_dislike', to: 'like_dislikes#create_dislike'
 
+  #Video routes
   get 'show', to:'videos#show'
   get 'new', to:'videos#new'
   patch 'update/:id', to: 'videos#update', as: 'update_video'
@@ -36,7 +40,7 @@ Rails.application.routes.draw do
 
   get 'about', to:'style#about'
   get 'contact', to:'style#contact'
-
+ 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
