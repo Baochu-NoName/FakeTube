@@ -1,5 +1,6 @@
 class LikeDislikesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_counter, only: %i[get_counter]
   # first time test class variables
   @@like_count = @@dislike_count = 0
 
@@ -22,8 +23,14 @@ class LikeDislikesController < ApplicationController
     @like_dislike.destroy
   end
 
+  def get_counter
+    render json: @like_dislikes.to_json(include: )
+  end
 
-  private
+private
+  def set_counter
+    @like_dislikes = LikeDislike.all
+  end
 
  def like_dislike_params
     params.permit(:user_id, :video_id, :likes_count, :dislikes_count, :is_liked, :is_disliked)

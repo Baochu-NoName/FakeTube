@@ -10,7 +10,19 @@ module Admin
 
     def authenticate_admin
       # TODO Add authentication logic here.
-      redirect_to root_path if user_signed_in? && !current_user.admin?
+      if user_signed_in?
+        page_not_found if !current_user.admin?
+      else
+        page_not_found      
+      end
+    end
+
+    # def render_404_page
+    #   redirect_to :file => "#{Rails.root}/public/404.html", :status => 404
+    # end
+
+    def page_not_found
+      raise ActionController::RoutingError.new('Not Found')
     end
 
     # Override this value to specify the number of elements to display at a time

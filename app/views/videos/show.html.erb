@@ -2,14 +2,14 @@
    <%= video_tag(url_for(@video.clip), size:'600x300', controls: :controls, id:'videoPlay', class: "video-js vjs-default-skin", preload: true, 'data-setup':'{ "aspectRatio":"600:300", "playbackRates": [0.5, 1, 1.5, 2] }' ) %>
 </p>
 <p>
-<button class="btn-custom" id="blue" onclick="document.getElementById('form-blue').submit();"><i class="fa-solid fa-thumbs-up fa-2x"></i></button>
-<button class="btn-custom" id="red" onclick="document.getElementById('form-red').submit();"><i class="fa-solid fa-thumbs-down fa-2x"></i></button>
+<button class="btn-custom" id="blue"><i class="fa-solid fa-thumbs-up fa-2x"></i></button>
+<button class="btn-custom" id="red"><i class="fa-solid fa-thumbs-down fa-2x"></i></button>
 <% if user_signed_in? %>
-  <div id="video-content">Test Ajax Request here. Video title will be listed here</div>
+  <div id="video-content" onload="getLikeDislikeCount()"></div>
 
-  <%= button_to "Like", {controller: :like_dislikes, video_id: @video.id, action: :create_like}, remote: true,form: {id: 'form-blue'} %>
+  <%= button_to "Like", {controller: :like_dislikes, video_id: @video.id, action: :create_like}, remote: true, form: {id: 'form-blue'} %>
 
-  <%= button_to "DisLike", {controller: :like_dislikes, video_id: @video.id, action: :create_dislike}, remote: true,form: {id: 'form-red'}%>
+  <%= button_to "DisLike", {controller: :like_dislikes, video_id: @video.id, action: :create_dislike}, remote: true, form: {id: 'form-red'}%>
 <% end %>
 </p>
 <p>
@@ -43,9 +43,9 @@
     <%= link_to "Update Video", edit_video_path(@video), class: "btn btn-success" if @video.user_id == current_user.id %>
     <% end %>
 
-<%= link_to "Back", videos_path, class: "btn btn-secondary" %>
+    <%= link_to "Back", videos_path, class: "btn btn-secondary" %>
 
-<script>
+<script type="text/javascript" data-turbolinks-eval="false" defer>
   let getLikeButton = document.querySelector('#blue');
   let getDislikeButton = document.querySelector('#red');
 
@@ -53,25 +53,53 @@
     if(getDislikeButton.classList.contains('btn-red')){
       getDislikeButton.classList.remove('btn-red'); 
     }
-    this.classList.toggle('btn-blue');
+      this.classList.toggle('btn-blue');
+      <% if user_signed_in? %>
+          document.getElementById('form-blue').submit(); 
+      <% end %>
   }); 
 
   getDislikeButton.addEventListener('click', function() {
     if(getLikeButton.classList.contains('btn-blue')){
       getLikeButton.classList.remove('btn-blue');
     }  
-    this.classList.toggle('btn-red');
+      this.classList.toggle('btn-red');
+    <% if user_signed_in? %>
+      document.getElementById('form-red').submit(); 
+    <% end %>
     });
+window.addEventListener('load', getLikeDislikeCount());
 
-
-  window.onload = function(){
-      <% if @is_liked %>
-           getLikeButton.classList.toggle('btn-blue');
+    <% if @is_liked %>
+         getLikeButton.classList.toggle('btn-blue');
     <% elsif @is_disliked %>
-        getDislikeButton.classList.toggle('btn-red');
-    <% else %>
-          getDislikeButton.classList.remove('btn-red');
-          getLikeButton.classList.remove('btn-blue');
-      <% end %>
+         getDislikeButton.classList.toggle('btn-red');
+    <% end %>
+
+    function getTitles(arr){
+        let output = "";
+        let sum_like = sum_dislike = 0;
+        let i;
+      for(i = 0; i<arr.length; i++){
+        if (arr[i].video_id == <%= @video.id %>){
+            sum_like += arr[i].likes_count
+            sum_dislike += arr[i].dislikes_count
+          }
+        }
+        output += '<strong>Like: ' + sum_like + ' Dislike: ' + sum_dislike  + ' </strong>';
+         document.getElementById('video-content').innerHTML = output;
     }
+ 
+    function getLikeDislikeCount(){
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            let myArr = JSON.parse(this.responseText);
+            getTitles(myArr);
+          }
+      };
+      xhttp.open('GET','/like_dislike_count.json', true);
+      xhttp.send();
+    }
+
 </script>

@@ -27,17 +27,21 @@ Rails.application.routes.draw do
   
   #resources :categories
   delete 'categories/:id', to: 'categories#destroy', as:'delete_category'
-  resources :videos
+  
+  #Like or Dislike
   resources :like_dislikes, only:%i[ destroy ]
   post 'create_like', to: 'like_dislikes#create_like'
   post 'create_dislike', to: 'like_dislikes#create_dislike'
-
+  get  'like_dislike_count', to: 'like_dislikes#get_counter'
+  
   #Video routes
+  resources :videos  
   get 'show', to:'videos#show'
   get 'new', to:'videos#new'
   patch 'update/:id', to: 'videos#update', as: 'update_video'
   root 'videos#index'
-
+ 
+# Static pages
   get 'about', to:'style#about'
   get 'contact', to:'style#contact'
  

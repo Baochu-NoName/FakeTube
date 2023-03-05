@@ -2,7 +2,6 @@ class VideosController < ApplicationController
   before_action :set_video, only: %i[show edit update destroy]
   before_action :set_cats
   before_action :authenticate_user!, only: %i[new edit update destroy]
-
   def index
     if params[:search_input] 
       @videos = Video.includes(thumbnail_attachment: :blob).search_videos(params[:search_input])
@@ -16,9 +15,10 @@ class VideosController < ApplicationController
     if current_user.present?
       Video.update(views_count: @video.views_count + 1) if !current_user.admin?
     end
-    @is_liked =  @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id).is_liked? if user_signed_in?
-    @is_disliked =  @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id).is_disliked? if user_signed_in?
 
+    like = @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id) if user_signed_in?
+    @is_liked = like.is_liked if like.present?
+    @is_disliked = like.is_disliked if like.present?
   end
 
   def edit
@@ -41,7 +41,7 @@ class VideosController < ApplicationController
       render :new
     end
   end
-
+new
   def update
     if @video.update(video_params)
       redirect_to @video, notice: "Video was successfully updated"
@@ -49,7 +49,7 @@ class VideosController < ApplicationController
       render :edit
     end
   end
-
+  
   private
   def set_video
     @video = Video.friendly.find(params[:id])
