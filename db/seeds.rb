@@ -18,6 +18,12 @@ def create_table_values
                 password_confirmation: "jd@131619",
                 role: 0
             )
+    User.create(user_name: "Jane Doe",
+                email: "jad@gmail.com",
+                password: "jad@131619",
+                password_confirmation: "jad@131619",
+                role: 0
+            )
 
     Category.create(
         name: "Education",
@@ -30,3 +36,5 @@ def create_table_values
 end
 
 create_table_values
+User.find_each(&:save)
+puts "Okay done!!!"

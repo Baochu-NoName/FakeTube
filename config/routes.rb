@@ -22,25 +22,29 @@ Rails.application.routes.draw do
    end
 
   devise_for :users do
-    get '/users/sign_out', to: 'devise/sessions#destroy'
+    delete '/users/sign_out', to: 'devise/sessions#destroy'
+    get '/users/:id/edit', to: 'devise/registrations#edit'
   end
   
   #resources :categories
   delete 'categories/:id', to: 'categories#destroy', as:'delete_category'
-  resources :videos
+  #Comment
+  resources :videos do
+    post '/comments/', to: 'comments#video_comment', as: 'comments'
+  end
+  delete '/comments/:id/:comment_id', to: 'comments#delete_comment', as: 'delete_comment'
   resources :like_dislikes, only:%i[ destroy ]
   post 'create_like', to: 'like_dislikes#create_like'
   post 'create_dislike', to: 'like_dislikes#create_dislike'
 
   #Video routes
-  get 'show', to:'videos#show'
+  # get '/show/:id', to:'videos#show'
   get 'new', to:'videos#new'
   patch 'update/:id', to: 'videos#update', as: 'update_video'
   root 'videos#index'
 
   get 'about', to:'style#about'
   get 'contact', to:'style#contact'
- 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

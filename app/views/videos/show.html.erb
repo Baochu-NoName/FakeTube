@@ -12,6 +12,9 @@
   <%= button_to "DisLike", {controller: :like_dislikes, video_id: @video.id, action: :create_dislike}, remote: true,form: {id: 'form-red'}%>
 <% end %>
 </p>
+<p>Likes: <%= @total_likes_count %></p>
+
+<p>Dislikes: <%= @total_dislikes_count %></p>
 <p>
    <strong>Title:</strong>
    <%= @video.title %>
@@ -44,8 +47,15 @@
     <% end %>
 
 <%= link_to "Back", videos_path, class: "btn btn-secondary" %>
+<h1>Comments</h1>
+<% if user_signed_in? %>
+  <%= render partial: "comments/comment_form", locals: {video: @video, parent: nil} %>
+<% else %>
+  <p>You need to sign in to post your comment</p>
+<% end %>
+<%= render @video.comments.where(parent_id: nil).includes(:user).order(id: :desc) %>
 
-<script>
+<script data-turbolinks-eval="false">
   let getLikeButton = document.querySelector('#blue');
   let getDislikeButton = document.querySelector('#red');
 
@@ -65,7 +75,7 @@
 
 
   window.onload = function(){
-      <% if @is_liked %>
+    <% if @is_liked %>
            getLikeButton.classList.toggle('btn-blue');
     <% elsif @is_disliked %>
         getDislikeButton.classList.toggle('btn-red');
@@ -75,3 +85,4 @@
       <% end %>
     }
 </script>
+<script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>

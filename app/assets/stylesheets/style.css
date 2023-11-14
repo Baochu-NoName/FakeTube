@@ -54,3 +54,295 @@
 	/* Otherwise we'll rely on stacked opacities */
 	 background: rgba(115, 133, 159, 0.75);
 }
+#shell {
+	width:980px;
+	margin:0 auto;
+	display: flex;
+	flex-direction: column;
+}
+.text-right {
+	text-align:right;
+}
+h2 {
+	font-size:10px;
+	color:#f2a223;
+	font-weight:bold;
+}
+h3 {
+	font-size:14px;
+	color:#fff;
+	font-weight:bold;
+}
+h4 {
+	font-size:14px;
+	color:#f3b12b;
+	font-weight:bold;
+}
+
+#header {
+	position:relative;
+}
+h1#logo {
+	position:absolute;
+	top:37px;
+	left:0;
+}
+h1#logo a {
+	float:left;
+	width:239px;
+	height:49px;
+	background:url('/assets/logo.gif') no-repeat 0 0;
+	font-size:0;
+	line-height:0;
+	text-indent:-4000px;
+}
+
+#main {
+	border-bottom:1px dashed #413e3e;
+}
+#content {
+}
+.box {
+	width:980px;
+	border-bottom:1px dashed #413e3e;
+	padding-bottom:21px;
+}
+.box .head {
+	width:980px;
+	padding-top:14px;
+	padding-bottom:11px;
+}
+.box .head h2 {
+	float:left;
+	display:inline;
+}
+.box .movie {
+	width:152px;
+	float:left;
+	padding-right:12px;
+	margin-right: 5px;
+}
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.movie-image {
+	float:left;
+	width:152px;
+	height:214px;
+	position:relative;
+}
+.movie-image img {
+	width:152px;
+	height:214px;
+}
+.movie-image a {
+	float:left;
+	display:inline;
+	width:152px;
+	height:214px;
+	position:relative;
+	z-index:2;
+}
+.play {
+	position:absolute;
+	top:0;
+	left:0;
+	width:152px;
+	height:214px;
+	background-image: url('/assets/image-hover.png')!important;
+	display:block;
+	z-index: 5;
+	cursor:pointer;
+	display:none;
+}
+
+.play-img {
+	position:absolute;
+	top:0;
+	left:0;
+	width:152px;
+	height:214px;
+	background-image: url('/assets/play.PNG')!important;
+	display:block;
+	z-index: 5;
+	cursor:pointer;
+	display:none;
+}
+
+.movie span.name {
+	font-weight:bold;
+	color:#fff;
+	font-size: 14px;
+	text-align:center;
+	padding-top:160px;
+	display:block;
+}
+.box .last {
+	padding:0;
+}
+.rating {
+	float:left;
+	width:152px;
+	padding-top:8px;
+}
+.rating p {
+	float:left;
+	font-size:10px;
+	color:#fff;
+	font-weight:bold;
+}
+.rating .stars {
+	float:left;
+	width:60px;
+	height:11px;
+	background:url('/assets/stars.gif') no-repeat 0 0;
+	margin-left:2px;
+}
+.rating .stars-in {
+	width:48px;
+	display:inline;
+	background:url('/assets/stars.gif') no-repeat 0 bottom;
+	position:absolute;
+	height:11px;
+	font-size:0;
+	line-height:0;
+	text-indent:-4000px;
+}
+.comments {
+	background:url('/assets/comments.gif') no-repeat 0 center;
+	padding-left:12px;
+	float:right;
+}
+#news {
+	width:460px;
+	float:left;
+}
+#news .head {
+	width:460px;
+	padding-top:11px;
+	padding-bottom:14px;
+}
+#news h3, #coming h3 {
+	float:left;
+}
+#coming {
+	width:490px;
+	float:left;
+	padding-left:30px;
+}
+#coming .head {
+	width:490px;
+	padding-top:11px;
+	padding-bottom:14px;
+}
+#coming .head strong {
+	color:#ff361a;
+}
+#coming .content {
+	min-height:130px;
+	height:auto!important;
+	height:130px;
+	padding-bottom:20px;
+}
+#coming .content h4 {
+	padding-bottom:3px;
+}
+.content {
+	padding-bottom:28px;
+}
+.content .date {
+	font-size:10px;
+	color:#fff;
+}
+.content img {
+	float:left;
+	width: 100px;
+	padding-right:8px;
+}
+.content p {
+	font-size:13px;
+	color:#fff;
+	line-height:16px;
+}
+.content a {
+	font-size:11px;
+}
+#video_thumbnail_preview {
+ margin: 10 16px;
+}
+.cl {
+	display:block;
+	height:0;
+	font-size:0;
+	line-height:0;
+	text-indent:-4000px;
+	clear:both;
+} 
+a img{
+	border: 0;
+}
+
+.latest-update-container{
+	display: flex;
+	width: 980px;
+	height: 300px;
+	margin: 16px 25px;
+	padding: 8px 16px;
+	flex-direction: row;
+}
+
+.latest-update-container .latest-update-wrapper {
+	display: flex;
+	position: relative;
+	gap: 10px;
+	width: 1100px;
+	height: 300px;
+	overflow-x: hidden;
+	align-items: center;
+	z-index: 0;
+}
+
+.update-movie {
+	min-width: 210px;
+	height: 300px;
+	margin: 6px 8px;
+	border: 1px solid #333;
+	background-color: brown;
+	text-align: center;
+	color: #fff;
+	/* animation: slideAnim 24s infinite linear; */
+}
+.prev-wrapper a, .next-wrapper a {
+	display: inline-block;
+	padding: 8px 16px;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+.prev-wrapper a:hover, .next-wrapper a:hover {
+	background-color: #3b3b3b;
+	color: #FF0000;
+}
+.prev-wrapper, .next-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.previous, .next {
+	display: flex;
+	margin: 10px;
+	padding: 8px;
+	width: 50px;
+	height: 50px;
+	background-color:#151515;
+	color: #fff;
+	justify-content: center;
+	align-items: center;
+	font-weight: 800;
+	font-size: 20px;
+}
+.round { 
+	border-radius: 50%;
+}

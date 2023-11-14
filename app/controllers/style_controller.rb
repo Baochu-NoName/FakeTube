@@ -1,5 +1,4 @@
 class StyleController < ApplicationController
-	
 	def header
 	end
 

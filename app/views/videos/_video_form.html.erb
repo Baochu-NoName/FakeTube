@@ -10,14 +10,14 @@
     </div>
 
      <div class="mb-3 form-group">
-        <%= f.label :categories %>
-        <%= f.collection_select :category_ids, Category.all.order(:name), :id, :name, {}, {class: 'form-control select2', style: "color: white;", multiple: true} %>
+        <%= f.label :category_ids %>
+        <%= f.collection_select :category_ids, Category.all.order(:name), :id, :name, {}, {class: 'form-control category-select2', style: "color: white;", multiple: true} %>
     </div>
-
     
     <div class="mb-3">
         <%= f.label :thumbnail%>
         <%= f.file_field :thumbnail%>
+        <img id="video_thumbnail_preview">
     </div>
     <div class="mb-3">
         <%= f.label :clip%>
@@ -30,12 +30,6 @@
     </div>
     <%= f.submit "Submit", class: 'btn btn-success'%>
     <% end %>
-    <script>
-       $(document).ready(function() {
-            $('.select2').select2({
-                theme: "classic",
-                width: "resolve"
-            });
-        });
-    </script>
+    
 </div>
+<%= javascript_include_tag "new-video" %>

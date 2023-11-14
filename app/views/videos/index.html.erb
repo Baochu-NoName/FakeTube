@@ -1,45 +1,166 @@
-<div class="card-group">
-  <% if @videos.present? %>
-	<% @videos.each do |video| %>
-		<div class="col-8 col-md-3 col-lg-2" style="margin: 15px 10px;">
-			<div class="card">
-					<%= image_tag(video.thumbnail, id:"img-thumbnail", class:"card-img-top") if video.thumbnail.persisted? %>
-				<div class="card-body">
-						<h5 class="card-title"><b><%= link_to truncate(video.title, length: 20, 'font-size': '18rem;'), video, style: "color: #FE6F5E", title: video.title %></b></h5>
-				</div>
-				<div class="card-footer text-muted">
-					<% if (video.updated_at - video.created_at) > 1%>
-						<small><%= time_ago_in_words(video.updated_at) %></small>
-					<% else %>
-						<small><%= time_ago_in_words(video.created_at) %></small>
-					<% end %>
-				</div> 
-			</div> 
-	</div>  
-    <% end %>
-  <% end %>
+    <div class="latest-update-container">
+        <div class="prev-wrapper">
+            <a href="#" class="previous round">&#8249;</a>
+        </div>
+        <div class="latest-update-wrapper">
+          <% if @video_limit.present? %>
+          <% @video_limit.each do |limit_vid| %>
+              <div id="movie_<%= limit_vid.id %>" class="update_movie">
+                <div class="movie ">
+                  <div class="movie-image"> <span class="play"><span class="name"><%= truncate(limit_vid.title, length: 10) %></span></span> <a href="#"><%= image_tag(limit_vid.thumbnail, id:"img-thumbnail") if limit_vid.thumbnail.persisted? %></a> </div>
+                  <p><%= link_to truncate(limit_vid.title, length: 18, 'font-size': '12px'), limit_vid, style: "color: #FE6F5E; font-weight: 600; ", title: limit_vid.title %></p>
+                  <div class="rating">
+                    <div class="stars">
+                    <div class="stars-in"> </div>
+                    </div>
+                    <span class="comments">12</span> </div>
+                    <p><%= time_ago_in_words(limit_vid.created_at) %> ago</p>
+                </div>
+              </div>
+            <% end %>
+            <% end %>
+        </div>
 
+        <div class="next-wrapper">
+            <a href="#" class="next round">&#8250;</a>
+        </div>
+    </div>
 
-	<%  if @video_categories.present? %>
-			<% @video_categories.each do |video|%>
-					<div class="col-8 col-md-3 col-lg-2" style="margin: 15px 10px;">
-						<div class="card">
-								<%= image_tag(video.thumbnail, id:"img-thumbnail", class:"card-img-top") if video.thumbnail_attachment.persisted? %>
-							<div class="card-body">
-									<h5 class="card-title"><b><%= link_to truncate(video.title, length: 20, 'font-size': '18rem;'), video, style: "color: #FE6F5E", title: video.title %></b></h5>
-							</div>
-							<div class="card-footer text-muted">
-								<% if (video.updated_at - video.created_at) > 1%>
-									<small><%= time_ago_in_words(video.updated_at) %></small>
-								<% else %>
-									<small><%= time_ago_in_words(video.created_at) %></small>
-								<% end %>
-							</div> 
-						</div> 
-				</div>  
-		
-			<% end %>
-	<% end %>
-</div>
-<br>
+    <div id="main">
+        <div id="content">
+          <div class="box">
+            <div class="head">
+              <h2>LATEST TRAILERS</h2>
+              <p class="text-right"><a href="#">See all</a></p>
+            </div>
 
+            <% if @video_trailers.present? %>
+
+              <% @video_trailers.each do |video| %>
+                <% @video_trailer_limit = Video.find(video.video_id) %>
+
+                <div class="movie">
+                  <div class="movie-image"> <span class="play-img"><span class="name"><%= link_to truncate(@video_trailer_limit.title, length: 18), @video_trailer_limit, title: @video_trailer_limit.title %></span></span> <a href="#"><%= image_tag(@video_trailer_limit.thumbnail, id:"img-thumbnail") if @video_trailer_limit.thumbnail.persisted? %></a> </div>
+                  <div class="rating">
+                    <p><%= link_to truncate(@video_trailer_limit.title, length: 18), @video_trailer_limit, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: @video_trailer_limit.title %></p>
+                    <div class="stars">
+                    <div class="stars-in"> </div>
+                    </div>
+                    <span class="comments">12</span> </div>
+                    <p><%= time_ago_in_words(@video_trailer_limit.created_at) %> ago</p>
+                </div>
+              <% end %>
+            <% end %>
+
+            <%# <div class="movie last">
+              <div class="movie-image"> <span class="play"><span class="name">ICE AGE</span></span> <a href="#"><img src="css/images/movie6.jpg" alt="" /></a> </div>
+              <div class="rating">
+                <p>RATING</p>
+                <div class="stars">
+                  <div class="stars-in"> </div>
+                </div>
+                <span class="comments">12</span> </div>
+            </div> %>
+            <div class="cl">&nbsp;</div>
+          </div>
+          <div class="box">
+            <div class="head">
+              <h2>TOP RATED</h2>
+              <p class="text-right"><a href="#">See all</a></p>
+            </div>
+            <div class="movie-grid">
+          <% @video_top_rated_limit.each do |video_rating| %>
+              <div class="movie">
+                <div class="movie-image"> <span class="play"><span class="name"><%= video_rating.title %></span></span> <a href="#"><%= image_tag(video_rating.thumbnail, id:"img-thumbnail") if video_rating.thumbnail.persisted? %></a> </div>
+                <div class="rating">
+                    <p><%= link_to truncate(video_rating.title, length: 18, 'font-size': '12px'), video_rating, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: video_rating.title %></p>
+                  <div class="stars">
+                    <div class="stars-in"> </div>
+                  </div>
+                  <span class="comments">12</span> </div>
+              </div>
+          <% end %>
+          </div>
+            <%# <div class="movie last"> %>
+            <%#   <div class="movie-image"> <span class="play"><span class="name">ANGELS &amp; DEMONS</span></span> <a href="#"><img src="css/images/movie12.jpg" alt="" /></a> </div> %>
+            <%#   <div class="rating"> %>
+            <%#     <p>RATING</p> %>
+            <%#     <div class="stars"> %>
+            <%#       <div class="stars-in"> </div> %>
+            <%#     </div> %>
+            <%#     <span class="comments">12</span> </div> %>
+            <%# </div> %>
+            <div class="cl">&nbsp;</div>
+          </div>
+          <div class="box">
+            <div class="head">
+              <h2>MOST COMMENTED</h2>
+              <p class="text-right"><a href="#">See all</a></p>
+            </div>
+          <div class="movie-grid">
+
+            <% @video_most_commented_limit.each do |video_most_commented| %>
+            <div class="movie">
+              <div class="movie-image"> <span class="play"><span class="name"><%= video_most_commented.title %></span></span> <a href="#"><%= image_tag(video_most_commented.thumbnail) if video_most_commented.thumbnail.persisted? %></a> </div>
+              <div class="rating">
+                  <p><%= link_to truncate(video_most_commented.title, length: 18, 'font-size': '12px'), video_most_commented, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: video_most_commented.title %></p>
+                <div class="stars">
+                  <div class="stars-in"> </div>
+                </div>
+                <span class="comments">12</span> </div>
+                </div>
+          <% end %>
+            </div>
+            <%# <div class="movie last"> %>
+            <%#   <div class="movie-image"> <span class="play"><span class="name">THE PRESTIGE</span></span> <a href="#"><img src="css/images/movie18.jpg" alt="" /></a> </div> %>
+            <%#   <div class="rating"> %>
+            <%#     <p>RATING</p> %>
+            <%#     <div class="stars"> %>
+            <%#       <div class="stars-in"> </div> %>
+            <%#     </div> %>
+            <%#     <span class="comments">12</span> </div> %>
+            <%# </div> %>
+            <div class="cl">&nbsp;</div>
+          </div>
+        </div>
+        <div id="news">
+          <div class="head">
+            <h3>NEWS</h3>
+            <p class="text-right"><a href="#">See all</a></p>
+          </div>
+          <div class="content">
+            <p class="date">12.04.09</p>
+            <h4>Disney's A Christmas Carol</h4>
+            <p>&quot;Disney's A Christmas Carol,&quot; a multi-sensory thrill ride re-envisioned by Academy Award&reg;-winning filmmaker Robert Zemeckis, captures... </p>
+            <a href="#">Read more</a> </div>
+          <div class="content">
+            <p class="date">11.04.09</p>
+            <h4>Where the Wild Things Are</h4>
+            <p>Innovative director Spike Jonze collaborates with celebrated author Maurice Sendak to bring one of the most beloved books of all time to the big screen in &quot;Where the Wild Things Are,&quot;...</p>
+            <a href="#">Read more</a> </div>
+          <div class="content">
+            <p class="date">10.04.09</p>
+            <h4>The Box</h4>
+            <p>Norma and Arthur Lewis are a suburban couple with a young child who receive an anonymous gift bearing fatal and irrevocable consequences.</p>
+            <a href="#">Read more</a> </div>
+        </div>
+        <div id="coming">
+          <div class="head">
+            <h3>COMING SOON<strong>!</strong></h3>
+            <p class="text-right"><a href="#">See all</a></p>
+          </div>
+          <div class="content">
+            <h4>The Princess and the Frog </h4>
+            <a href="#"><img src="css/images/coming-soon1.jpg" alt="" /></a>
+            <p>Walt Disney Animation Studios presents the musical &quot;The Princess and the Frog,&quot; an animated comedy set in the great city of New Orleans...</p>
+            <a href="#">Read more</a> </div>
+          <div class="cl">&nbsp;</div>
+          <div class="content">
+            <h4>The Princess and the Frog </h4>
+            <a href="#"><img src="/assets/coming-soon2.jpg" alt="" /></a>
+            <p>Walt Disney Animation Studios presents the musical &quot;The Princess and the Frog,&quot; an animated comedy set in the great city of New Orleans...</p>
+            <a href="#">Read more</a> </div>
+        </div>
+        <div class="cl">&nbsp;</div>
+    </div>
+  <%= javascript_include_tag 'background', 'data-turbolinks-track': 'reload'%>

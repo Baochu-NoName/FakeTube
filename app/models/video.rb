@@ -4,8 +4,10 @@ class Video < ApplicationRecord
 	has_many :video_categories, dependent: :destroy
 	has_many :categories, through: :video_categories
     has_many :like_dislikes, dependent: :destroy
+	has_many :comments
 	belongs_to :user
-    scope :search_videos, -> (search) {joins(:categories).references(:categories).where('title ILIKE ? OR videos.description ILIKE ? OR categories.name ILIKE ?', "%#{search}%",  "%#{search}%", "%#{search}%")  if search.present?}
+    scope :search_videos, -> (search) {joins(:categories).references(:categories).where('title ILIKE ? OR videos.description ILIKE ? OR categories.name ILIKE ?', "%#{search}%",  "%#{search}%", "%#{search}%").distinct if search.present?}
+
 	extend FriendlyId
 	friendly_id :title
 	

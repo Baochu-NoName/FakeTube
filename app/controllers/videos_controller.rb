@@ -10,15 +10,29 @@ class VideosController < ApplicationController
       @videos = Video.includes(thumbnail_attachment: :blob).all.order("created_at DESC")
     end
       @video_categories = Video.includes(thumbnail_attachment: :blob).find_category(params[:search_by_category]) if params[:search_by_category]
+      @video_limit = Video.includes(thumbnail_attachment: :blob).all.order("created_at ASC").limit(12)
+      @video_trailers = VideoCategory.all.where(category_id: 6).limit(12)
+      @video_top_rated_limit = Video.all.order(views_count: :desc).limit(12)
+      @video_most_commented_limit = Video.order(:comments_count).limit(12)
   end
 
   def show
     if current_user.present?
-      Video.update(views_count: @video.views_count + 1) if !current_user.admin?
+      Video.includes(:user).update(views_count: @video.views_count + 1) if !current_user.admin?
     end
-    @is_liked =  @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id).is_liked? if user_signed_in?
-    @is_disliked =  @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id).is_disliked? if user_signed_in?
+    if user_signed_in?
+      @like_dislike = @video.like_dislikes.find_by(user_id: current_user.id, video_id: @video.id)     
+      @is_liked =  @like_dislike.is_liked? if @like_dislike
+      @is_disliked = @like_dislike.is_disliked? if @like_display
+    else
+      @is_liked = @is_disliked = false
+    end
 
+    @total_likes_count = LikeDislike.count_total_likes(@video.id)
+    @total_dislikes_count = LikeDislike.count_total_dislikes(@video.id) 
+    # Get video duration
+    # @get_duration = ActiveStorage::Analyzer::VideoAnalyzer.new(@video.clip.blob).metadata[:duration]
+     
   end
 
   def edit
@@ -48,6 +62,9 @@ class VideosController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy 
   end
 
   private

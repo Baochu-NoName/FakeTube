@@ -1,0 +1,8 @@
+<%= form_for :comment, url: video_comments_path(video), method: :post do |form| %>
+  <% if !parent.nil? %>
+    <%= form.hidden_field :parent_id, value: parent.id %>
+  <% end %>
+  <%= form.label :body %>
+  <%= form.rich_text_area :body, placeholder: "Enter your comment" %>
+  <%= form.submit "Submit" %>
+<% end %>
