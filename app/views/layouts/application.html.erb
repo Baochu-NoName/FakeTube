@@ -106,9 +106,11 @@
       $("#scroll-top").on("click", ()=>{
           $("html, body").animate({scrollTop: 0}, 800);
       })
-      $("window").on("scroll", ()=>{
-        if($("html, body").scrollTop() > 0){
-          $("#scroll-top").toggle();
+      $(window).on("scroll", ()=>{
+        if($("html, body").scrollTop() > 200){
+          $("#scroll-top").show();
+        }else{
+          $("#scroll-top").hide();
         }
       })
     </script>
