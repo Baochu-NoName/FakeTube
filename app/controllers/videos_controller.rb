@@ -4,16 +4,19 @@ class VideosController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
-    if params[:search_input] 
-      @videos = Video.includes(thumbnail_attachment: :blob).search_videos(params[:search_input])
-    elsif !params[:search_by_category]
-      @videos = Video.includes(thumbnail_attachment: :blob).all.order("created_at DESC")
-    end
-      @video_categories = Video.includes(thumbnail_attachment: :blob).find_category(params[:search_by_category]) if params[:search_by_category]
-      @video_limit = Video.includes(thumbnail_attachment: :blob).all.order("created_at ASC").limit(12)
+    if params.has_key?(:search_input)
+      videos = Video.includes(thumbnail_attachment: :blob).search_videos(params[:search_input])
+      @videos = Kaminari.paginate_array(videos).page(params[:video_page]).per(6)
+    elsif params.has_key?(:search_by_category)
+      videos_cat = Video.includes(thumbnail_attachment: :blob).find_category(params[:search_by_category])
+      # By default Kaminari provides an Array wrapper class that adapts a generic Array object to the paginate view helper. However, the paginate helper doesn't automatically handle your Array object (this is intentional and by design). Kaminari::paginate_array method converts your Array object into a paginatable Array that accepts page method.
+      @videos = Kaminari.paginate_array(videos_cat).page(params[:video_page]).per(6)
+    else 
       @video_trailers = VideoCategory.all.where(category_id: 6).limit(12)
       @video_top_rated_limit = Video.all.order(views_count: :desc).limit(12)
-      @video_most_commented_limit = Video.order(:comments_count).limit(12)
+      @video_most_commented_limit = Video.all.order(:comments_count).limit(12)
+    end
+      @video_limit = Video.includes(thumbnail_attachment: :blob).all.order("created_at ASC").limit(12)
   end
 
   def show
@@ -32,7 +35,6 @@ class VideosController < ApplicationController
     @total_dislikes_count = LikeDislike.count_total_dislikes(@video.id) 
     # Get video duration
     # @get_duration = ActiveStorage::Analyzer::VideoAnalyzer.new(@video.clip.blob).metadata[:duration]
-     
   end
 
   def edit
@@ -73,6 +75,6 @@ class VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :description, :thumbnail, :clip, :age_restricted, :user_id, category_ids: []) 
+    params.require(:video).permit(:title, :description, :thumbnail, :clip, :release_date, :age_restricted, :user_id, category_ids: []) 
   end
 end

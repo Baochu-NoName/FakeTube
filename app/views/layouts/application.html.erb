@@ -3,6 +3,7 @@
   <head>
     <title>FakeTube</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/assets/fake_tube.PNG">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -78,27 +79,59 @@
       </div>
       <%= render 'style/footer'%>
     <script>
+
+       function displayWhiteText(element){
+            element.forEach( (el) => {
+              el.style.color = "#fff";
+            });
+        }
+
+       function displayBlackText(element){
+            element.forEach( (el) => {
+              el.style.color = "#000";
+            });
+        }
+
       (function() {
+        const body = document.body;
+        const messageText = document.querySelectorAll(".message");
+        const dateContent = document.querySelectorAll(".date");
+        const bottomHeading = document.querySelectorAll(".bottom-heading");
         let onpageLoad = localStorage.getItem("theme");
-        let body = document.body;
-        let checkBox = document.getElementById("flexSwitchCheckChecked");
+        const checkBox = document.getElementById("flexSwitchCheckChecked");
         body.classList.add(onpageLoad);
         if(onpageLoad && onpageLoad === "dark-mode" && !checkBox.checked){
             checkBox.checked = true;
+            displayWhiteText(messageText);
+            displayWhiteText(dateContent);
+            displayWhiteText(bottomHeading);
         }else{
             checkBox.checked = false;
+            displayBlackText(messageText);
+            displayBlackText(dateContent);
+            displayBlackText(bottomHeading);
         }
       })();
 
       function themeToggle() {
-        let body = document.body;
+        const body = document.body;
+        const messageText = document.querySelectorAll(".message");
+        const dateContent = document.querySelectorAll(".date");
+        const bottomHeading = document.querySelectorAll(".bottom-heading");
+
         body.classList.toggle("dark-mode");
 
         let theme = localStorage.getItem("theme") || "";
         if (theme && theme === "dark-mode") {
           localStorage.setItem("theme", "light");
+          displayBlackText(messageText);
+          displayBlackText(dateContent);
+          displayBlackText(bottomHeading);
         } else {
           localStorage.setItem("theme", "dark-mode");
+          displayWhiteText(messageText);
+          displayWhiteText(dateContent);
+          displayWhiteText(bottomHeading);
         }
       }
 

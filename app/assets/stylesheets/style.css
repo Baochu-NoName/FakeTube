@@ -253,7 +253,7 @@ h1#logo a {
 	padding-bottom:28px;
 }
 .content .date {
-	font-size:10px;
+	font-size:13px;
 	color:#fff;
 }
 .content img {
@@ -280,7 +280,8 @@ h1#logo a {
 	text-indent:-4000px;
 	clear:both;
 } 
-a img{
+a img.img-thumbnail{
+    padding: 0;
 	border: 0;
 }
 
@@ -330,7 +331,7 @@ a img{
 	justify-content: center;
 	align-items: center;
 }
-.previous, .next {
+.carousel-previous, .carousel-next {
 	display: flex;
 	margin: 10px;
 	padding: 8px;

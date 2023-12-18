@@ -16,6 +16,7 @@ class VideoDashboard < Administrate::BaseDashboard
     thumbnail_blob: Field::HasOne,
     thumbnail_attachment: Field::HasOne,
     clip: Field::ActiveStorage,
+    release_date: Field::DateTime,
     thumbnail: Field::ActiveStorage,
     description: Field::Text,
     slug: Field::String,
@@ -35,6 +36,7 @@ class VideoDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     clip
+    release_date
     thumbnail
     age_restricted
     categories
@@ -48,6 +50,7 @@ class VideoDashboard < Administrate::BaseDashboard
     age_restricted
     categories
     clip
+    release_date
     thumbnail
     description
     slug
@@ -65,6 +68,7 @@ class VideoDashboard < Administrate::BaseDashboard
     age_restricted
     categories
     clip
+    release_date
     thumbnail
     description
     slug

@@ -25,6 +25,11 @@
     </div>
 
     <div class="mb-3">
+        <%= f.label :release_date%>
+        <%= f.datetime_field :release_date, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
         <%= f.label :age_restricted %>
         <%= f.check_box :age_restricted %>
     </div>
