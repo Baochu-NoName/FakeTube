@@ -1,5 +1,5 @@
 <article>
-    <p>By <%= comment.user.email %></p>
+    <p><%= image_tag(comment.user.avatar, size: '50x50', style: 'border-radius: 50%; margin-top: 5px;') %> <%= comment.user.email %></p>
     <div class="comment-content"> <%= comment.body %></div>
     <a class="comment-reply-display" href="#">Reply</a> ||
     <div class="comment-form">

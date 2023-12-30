@@ -192,6 +192,7 @@ button {
   border-radius: 3%;
   text-align: center;
   cursor: pointer;
+  z-index: 99;
 }
 
 #scroll-top:hover{

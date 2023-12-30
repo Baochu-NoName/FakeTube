@@ -14,9 +14,9 @@ class VideosController < ApplicationController
     else 
       @video_trailers = VideoCategory.all.where(category_id: 6).limit(12)
       @video_top_rated_limit = Video.all.order(views_count: :desc).limit(12)
-      @video_most_commented_limit = Video.all.order(:comments_count).limit(12)
+      @video_most_commented_limit = Video.all.order(comments_count: :desc).limit(12)
     end
-      @video_limit = Video.includes(thumbnail_attachment: :blob).all.order("created_at ASC").limit(12)
+    @video_limit = Video.includes(thumbnail_attachment: :blob).all.order("created_at ASC").limit(12)
   end
 
   def show

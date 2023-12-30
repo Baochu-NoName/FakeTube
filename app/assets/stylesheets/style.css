@@ -298,9 +298,9 @@ a img.img-thumbnail{
 	display: flex;
 	position: relative;
 	gap: 10px;
-	width: 1100px;
+	width: 980px;
 	height: 300px;
-	overflow-x: hidden;
+	overflow: hidden;
 	align-items: center;
 	z-index: 0;
 }

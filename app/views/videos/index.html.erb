@@ -4,17 +4,17 @@
         </div>
         <div class="latest-update-wrapper">
           <% if @video_limit.present? %>
-          <% @video_limit.each do |limit_vid| %>
+          <% @video_limit.each_with_index do |limit_vid, index| %>
               <div id="movie_<%= limit_vid.id %>" class="update_movie">
-                <div class="movie ">
-                  <div class="movie-image"> <span class="play"><span class="name"><%= truncate(limit_vid.title, length: 10) %></span></span> <a href="#"><%= image_tag(limit_vid.thumbnail, class:"img-thumbnail") if limit_vid.thumbnail.persisted? %></a> </div>
-                  <p><%= link_to truncate(limit_vid.title, length: 18, 'font-size': '12px'), limit_vid, style: "color: #FE6F5E; font-weight: 600; ", title: limit_vid.title %></p>
+                <div class="movie <%= 'last' if index == @video_limit.size - 1 %>">
+                  <div class="movie-image"> <span class="play"><span class="name"><%= link_to truncate(limit_vid.title, length: 18), limit_vid, title: limit_vid.title %></span></span> <a href="#"><%= image_tag(limit_vid.thumbnail, class:"img-thumbnail") if limit_vid.thumbnail.persisted? %></a> </div>
+                  <p><%= link_to truncate(limit_vid.title, length: 18), limit_vid, style: "color: #FE6F5E; font-weight: 600; font-size: 12px", title: limit_vid.title %></p>
                   <div class="rating">
                     <div class="stars">
                     <div class="stars-in"> </div>
                     </div>
-                    <span class="comments">12</span> </div>
-                    <p><%= time_ago_in_words(limit_vid.created_at) %> ago</p>
+                    <span class="comments"><%= limit_vid.comments.size %></span> </div>
+                    <p class="time"><%= time_ago_in_words(limit_vid.created_at) %> ago</p>
                 </div>
               </div>
             <% end %>
@@ -36,19 +36,18 @@
               <p class="text-right"><a href="#">See all</a></p>
             </div>
 
-
-              <% @video_trailers.each do |video| %>
+              <% @video_trailers.each_with_index do |video, index| %>
                 <% @video_trailer_limit = Video.find(video.video_id) %>
 
-                <div class="movie">
+                <div class="movie <%= 'last' if index == @video_trailers.size - 1%>" >
                   <div class="movie-image"> <span class="play-img"><span class="name"><%= link_to truncate(@video_trailer_limit.title, length: 18), @video_trailer_limit, title: @video_trailer_limit.title %></span></span> <a href="#"><%= image_tag(@video_trailer_limit.thumbnail, class:"img-thumbnail") if @video_trailer_limit.thumbnail.persisted? %></a> </div>
                   <div class="rating">
                     <p><%= link_to truncate(@video_trailer_limit.title, length: 18), @video_trailer_limit, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: @video_trailer_limit.title %></p>
                     <div class="stars">
                     <div class="stars-in"> </div>
                     </div>
-                    <span class="comments">12</span> </div>
-                    <p><%= time_ago_in_words(@video_trailer_limit.created_at) %> ago</p>
+                    <span class="comments"><%= @video_trailer_limit.comments.size %></span> </div>
+                    <p class="time"><%= time_ago_in_words(@video_trailer_limit.created_at) %> ago</p>
                 </div>
               <% end %>
 
@@ -72,15 +71,16 @@
               <p class="text-right"><a href="#">See all</a></p>
             </div>
             <div class="movie-grid">
-          <% @video_top_rated_limit.each do |video_rating| %>
-              <div class="movie">
+          <% @video_top_rated_limit.each_with_index do |video_rating, index| %>
+            <div class="movie <%= 'last' if index == @video_top_rated_limit.size - 1%>">
                 <div class="movie-image"> <span class="play"><span class="name"><%= video_rating.title %></span></span> <a href="#"><%= image_tag(video_rating.thumbnail, class:"img-thumbnail") if video_rating.thumbnail.persisted? %></a> </div>
                 <div class="rating">
-                    <p><%= link_to truncate(video_rating.title, length: 18, 'font-size': '12px'), video_rating, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: video_rating.title %></p>
+                    <p><%= link_to truncate(video_rating.title, length: 18), video_rating, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: video_rating.title %></p>
                   <div class="stars">
                     <div class="stars-in"> </div>
                   </div>
-                  <span class="comments">12</span> </div>
+                  <span class="comments"><%= video_rating.comments.size %></span> </div>
+                    <p class="time"><%= time_ago_in_words(video_rating.created_at) %> ago</p>
               </div>
             <% end %>
           </div>
@@ -104,15 +104,16 @@
               <p class="text-right"><a href="#">See all</a></p>
             </div>
           <div class="movie-grid">
-              <% @video_most_commented_limit.each do |video_most_commented| %>
-              <div class="movie">
+              <% @video_most_commented_limit.each_with_index do |video_most_commented, index| %>
+                <div class="movie <%= 'last' if index == @video_most_commented_limit.size - 1 %>">
                 <div class="movie-image"> <span class="play"><span class="name"><%= video_most_commented.title %></span></span> <a href="#"><%= image_tag(video_most_commented.thumbnail, class:"img-thumbnail") if video_most_commented.thumbnail.persisted? %></a> </div>
                 <div class="rating">
                     <p><%= link_to truncate(video_most_commented.title, length: 18, 'font-size': '12px'), video_most_commented, style: "color: #FE6F5E; font-weight: 600; font-size: 14px;", title: video_most_commented.title %></p>
                   <div class="stars">
                     <div class="stars-in"> </div>
                   </div>
-                  <span class="comments">12</span> </div>
+                  <span class="comments"><%= video_most_commented.comments.size %></span> </div>
+                <p class="time"><%= time_ago_in_words(video_most_commented.created_at) %> ago </p>
                   </div>
               <% end %>
             </div>
@@ -145,8 +146,9 @@
                   <div class="stars">
                     <div class="stars-in"> </div>
                   </div>
-                  <span class="comments">12</span> </div>
-                  </div>
+                  <span class="comments"><%= video.comments.size %></span> </div>
+                  <p class="time"><%= time_ago_in_words(video.created_at) %> ago </p> 
+              </div>
               <% end %>
             </div>
             <%# <div class="movie last"> %>
